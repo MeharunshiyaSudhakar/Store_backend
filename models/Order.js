@@ -11,6 +11,7 @@ const orderSchema = new mongoose.Schema({
     totalAmount: { type: Number, required: true },
     status: { type: String, default: 'Pending', enum: ['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'] },
     paymentStatus: { type: String, default: 'Unpaid', enum: ['Unpaid', 'Paid', 'Failed'] },
+    returnStatus: { type: String, default: 'Not Returned', enum: ['Not Returned', 'Return Requested', 'Returned'] },
     razorpayOrderId: { type: String },
     razorpayPaymentId: { type: String },
     razorpaySignature: { type: String }

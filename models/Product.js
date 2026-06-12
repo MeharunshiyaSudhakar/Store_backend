@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
+    originalPrice: { type: Number }, // Optional field for sale logic
     materials: { type: String, required: true },
     segment: {
         type: String,
@@ -12,7 +13,6 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['t-shirts', 'night-pants'],
         required: true
     },
     season: {
@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema({
         enum: ['Spring', 'Summer', 'Autumn', 'Winter', 'All-Season'],
         default: 'All-Season'
     },
+    isBundle: { type: Boolean, default: false },
     images: [{ type: String }], // Multiple product images
     sizes: [{
         size: { type: String, enum: ['S', 'M', 'L', 'XL', 'XXL'] },

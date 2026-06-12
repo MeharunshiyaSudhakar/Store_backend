@@ -144,6 +144,29 @@ router.get('/mine', auth, async (req, res) => {
     }
 });
 
+// User: Request Return
+router.post('/:id/return', auth, async (req, res) => {
+    try {
+        const order = await Order.findOne({ _id: req.params.id, user: req.user.id });
+        if (!order) return res.status(404).json({ message: 'Order not found' });
+        
+        if (order.status !== 'Delivered') {
+            return res.status(400).json({ message: 'Only delivered orders can be returned' });
+        }
+
+        if (order.returnStatus !== 'Not Returned') {
+            return res.status(400).json({ message: 'Return already requested or processed' });
+        }
+
+        order.returnStatus = 'Return Requested';
+        await order.save();
+
+        res.json({ message: 'Return requested successfully', order });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error requesting return', error: error.message });
+    }
+});
+
 // 6. Admin: Detailed Analytics
 router.get('/analytics', auth, isAdmin, async (req, res) => {
     try {

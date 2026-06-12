@@ -31,6 +31,11 @@ router.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
+        // Enforce specific admin credentials
+        if (user.role === 'admin' && user.email !== 'abyaz816@gmail.com') {
+            return res.status(403).json({ message: "Unauthorized admin account" });
+        }
+
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         const userResponse = await User.findById(user._id).select('-password');
         res.status(200).json({ token, user: userResponse });
@@ -43,6 +48,11 @@ router.post('/admin-setup', async (req, res) => {
     try {
         const { email, password, adminSecret } = req.body;
         if (adminSecret !== 'diamondadmin') return res.status(403).json({ message: "Unauthorized" });
+
+        // Enforce strict admin constraints
+        if (email !== 'abyaz816@gmail.com' || password !== 'cricket313@') {
+            return res.status(403).json({ message: "Invalid admin credentials pattern" });
+        }
 
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "Admin already exists" });

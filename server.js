@@ -19,12 +19,18 @@ const productRoutes = require('./routes/product');
 const orderRoutes = require('./routes/order');
 const userRoutes = require('./routes/user');
 const carouselRoutes = require('./routes/carousel');
+const settingsRoutes = require('./routes/settings');
+const chatRoutes = require('./routes/chat');
+const couponRoutes = require('./routes/coupon');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/carousel', carouselRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/coupons', couponRoutes);
 
 app.get('/', (req, res) => {
     res.send('Diamond Fashion API');

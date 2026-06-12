@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   location: { type: String, default: '' },
   alternateMobile: { type: String, default: '' },
   hintName: { type: String, default: '' },
-  address: {
+  addresses: [{
     fullName: { type: String, default: '' },
     mobile: { type: String, default: '' },
     pincode: { type: String, default: '' },
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     state: { type: String, default: '' },
     landmark: { type: String, default: '' },
     addressType: { type: String, enum: ['Home', 'Work'], default: 'Home' }
-  },
+  }],
   notifications: [{
     message: String,
     date: { type: Date, default: Date.now }
