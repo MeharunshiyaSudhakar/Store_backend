@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
         // Enforce specific admin credentials
-        if (user.role === 'admin' && user.email !== 'abyaz816@gmail.com') {
+        if (user.role === 'admin' && user.email !== 'mohamedabyazm.23csd@kongu.edu') {
             return res.status(403).json({ message: "Unauthorized admin account" });
         }
 
